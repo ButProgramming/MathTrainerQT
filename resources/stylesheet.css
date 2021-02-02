@@ -55,6 +55,7 @@ QLabel#term
     border: 2px dashed rgba(120, 120, 120, .4);
     font-size: 18px;
     font-family: "Comic Sans MS";
+    padding: 3px;
 }
 
 QLabel#label
