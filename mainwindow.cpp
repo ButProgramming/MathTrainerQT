@@ -150,7 +150,18 @@ void MainWindow::normalGame()
     tmr->start(1000);
 }
 
-//
+void MainWindow::normalGameGenerate()
+{
+    gen1 = QRandomGenerator::global()->bounded(0,5*(level+1));
+    gen2 = QRandomGenerator::global()->bounded(0,5*(level+1));
+    gen3 = QRandomGenerator::global()->bounded(2,3*(level+1));
+    gen4 = QRandomGenerator::global()->bounded(2,3*(level+1));
+    int gen5=gen3*gen4;
+    qDebug()<<"Normal: "<<(gen1+gen2)*gen3*gen4/gen4;
+    //ui->term->setText(QString::number(gen1)+" + "+QString::number(gen2));
+    ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") * "+QString::number(gen5)+"/"+QString::number(gen4)); // (a+b)*c/d
+
+}
 
 void MainWindow::hardGame()
 {
@@ -166,6 +177,41 @@ void MainWindow::hardGame()
     ui->progressBar->setMaximum(HTS);
     ui->progressBar->setValue(HTS);
     tmr->start(1000);
+}
+
+void MainWindow::hardGameGenerate()
+{
+    qDebug()<<"1!";
+    gen1 = QRandomGenerator::global()->bounded(1,4*(level+1));//a
+    qDebug()<<"2!";
+    gen3 = QRandomGenerator::global()->bounded(2,3*(level+1));//c
+    qDebug()<<"3!";
+    gen5 = QRandomGenerator::global()->bounded(1,3*(level+1));//e
+    qDebug()<<"4!";
+    gen6 = QRandomGenerator::global()->bounded(1,3*(level+1));//f
+
+
+    while (true)
+    {
+        gen2 = QRandomGenerator::global()->bounded(0,30*(level+1));//b
+        if ((gen1+gen2)%gen3==0)
+            break;
+        qDebug()<<"while1: "<<(gen1+gen2)%gen3;
+    }
+    qDebug()<<"5!";
+    while (true)
+    {
+        gen4 = QRandomGenerator::global()->bounded(2,60*(level+1));//d//b
+        if (gen4%(gen5+gen6)==0)
+            break;
+        qDebug()<<"while2: "<<gen4%(gen5+gen6);
+    }
+
+    //qDebug()<<"Hard: "<<(gen1+gen2)/gen3;
+    //ui->term->setText(QString::number(gen1)+" + "+QString::number(gen2));
+    //ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") / "+QString::number(gen3)); // (a+b)*c+d/(e+f)
+    ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") / "+QString::number(gen3)+" + "+QString::number(gen4)+"/("+QString::number(gen5)+" + "+QString::number(gen6)+")");
+    qDebug()<<"answer hard: "<<((gen1+gen2)/gen3)+(gen4/(gen5+gen6));
 }
 
 void MainWindow::on_ButtonStart_clicked()
@@ -237,36 +283,74 @@ void MainWindow::on_PlayButton_clicked()
             timer=NTS;
             ui->lcdNumber->display(timer);
             normalGame();
-            easyGameGenerate();
+            normalGameGenerate();
         }
         else if (ui->ListLevels->currentRow()==2)
         {
             timer=HTS;
             ui->lcdNumber->display(timer);
             hardGame();
-            easyGameGenerate();
+            hardGameGenerate();
         }
     }
 }
 
 void MainWindow::on_CheckButton_clicked()
 {
+    qDebug()<<"checkButton";
     QString Qanswer = ui->lineAnswer->text();
     int Ianswer=Qanswer.toInt();
-    if (Ianswer==gen1+gen2)
-    {
-        level++;
-        ui->labelLevel->setText(QString::number(level));
-        ui->lineAnswer->setText("");
-        ui->lineAnswer->setFocus();
-        //easyLvl++;
-        timer+=5;
-        if (timer>ETS)
-            ui->progressBar->setMaximum(timer);
-        ui->progressBar->setValue(timer);
-        ui->lcdNumber->display(timer);
-        easyGameGenerate();
+    if (isEasy) {
+        if (Ianswer==gen1+gen2)
+        {
+            level++;
+            ui->labelLevel->setText(QString::number(level));
+            ui->lineAnswer->setText("");
+            ui->lineAnswer->setFocus();
+            //easyLvl++;
+            timer+=5;
+            if (timer>ETS)
+                ui->progressBar->setMaximum(timer);
+            ui->progressBar->setValue(timer);
+            ui->lcdNumber->display(timer);
+            easyGameGenerate();
+        }
     }
+    else if (isNormal) {
+        if (Ianswer==(gen1+gen2)*gen3)
+        {
+           qDebug()<<"isNormal";
+            level++;
+            ui->labelLevel->setText(QString::number(level));
+            ui->lineAnswer->setText("");
+            ui->lineAnswer->setFocus();
+            //easyLvl++;
+            timer+=7;
+            if (timer>NTS)
+                ui->progressBar->setMaximum(timer);
+            ui->progressBar->setValue(timer);
+            ui->lcdNumber->display(timer);
+            normalGameGenerate();
+           }
+    }
+    else {
+        if (Ianswer==((gen1+gen2)/gen3)+(gen4/(gen5+gen6)))
+        {
+           //qDebug()<<"isHard: "<<(gen1+gen2)/3+gen4/(gen5+gen6);
+            level++;
+            ui->labelLevel->setText(QString::number(level));
+            ui->lineAnswer->setText("");
+            ui->lineAnswer->setFocus();
+            //easyLvl++;
+            timer+=7;
+            if (timer>NTS)
+                ui->progressBar->setMaximum(timer);
+            ui->progressBar->setValue(timer);
+            ui->lcdNumber->display(timer);
+            hardGameGenerate();
+           }
+    }
+
 }
 
 void MainWindow::updateTime()

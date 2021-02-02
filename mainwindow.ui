@@ -314,7 +314,7 @@
              <widget class="QLabel" name="term">
               <property name="minimumSize">
                <size>
-                <width>160</width>
+                <width>275</width>
                 <height>0</height>
                </size>
               </property>
@@ -348,14 +348,14 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="CheckButton">
-              <property name="text">
-               <string>Check</string>
-              </property>
-             </widget>
-            </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="CheckButton">
+            <property name="text">
+             <string>Check</string>
+            </property>
+           </widget>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_14">

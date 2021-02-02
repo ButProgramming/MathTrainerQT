@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #define ETS 3  //start value for easygame
-#define NTS 3 //start value for normalgame
-#define HTS 3 //start value for hardgame (hard timer start)
+#define NTS 10 //start value for normalgame
+#define HTS 10 //start value for hardgame (hard timer start)
 #include <QMainWindow>
 #include <QtSql/QtSql>
 #include <QRandomGenerator>
@@ -53,6 +53,10 @@ private:
     QSqlQuery sqlDB;
     int gen1;
     int gen2;
+    int gen3;
+    int gen4;
+    int gen5;
+    int gen6;
     //int easyTimer=ETS;
     int timer=0;
     QTimer *tmr;
