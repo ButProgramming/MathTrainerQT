@@ -181,37 +181,39 @@ void MainWindow::hardGame()
 
 void MainWindow::hardGameGenerate()
 {
-    qDebug()<<"1!";
-    gen1 = QRandomGenerator::global()->bounded(1,4*(level+1));//a
-    qDebug()<<"2!";
-    gen3 = QRandomGenerator::global()->bounded(2,3*(level+1));//c
+    gen1 = QRandomGenerator::global()->bounded(0,5*(level+1));
+    gen2 = QRandomGenerator::global()->bounded(0,5*(level+1));
+    gen3 = QRandomGenerator::global()->bounded(2,3*(level+1));
+    gen4 = QRandomGenerator::global()->bounded(2,3*(level+1));
     qDebug()<<"3!";
-    gen5 = QRandomGenerator::global()->bounded(1,3*(level+1));//e
+    gen6 = QRandomGenerator::global()->bounded(1,3*(level+1));//e
     qDebug()<<"4!";
-    gen6 = QRandomGenerator::global()->bounded(1,3*(level+1));//f
+    gen7 = QRandomGenerator::global()->bounded(1,3*(level+1));//f
 
 
-    while (true)
+    /*while (true)
     {
-        gen2 = QRandomGenerator::global()->bounded(0,30*(level+1));//b
+
         if ((gen1+gen2)%gen3==0)
             break;
         qDebug()<<"while1: "<<(gen1+gen2)%gen3;
-    }
-    qDebug()<<"5!";
+    }*/
+
+    qDebug()<<"Hard : "<<(gen1+gen2)*gen3*gen4/gen4;
+
     while (true)
     {
-        gen4 = QRandomGenerator::global()->bounded(2,60*(level+1));//d//b
-        if (gen4%(gen5+gen6)==0)
+        gen5 = QRandomGenerator::global()->bounded(2,60*(level+1));//d//b
+        if (gen5%(gen6+gen7)==0)
             break;
-        qDebug()<<"while2: "<<gen4%(gen5+gen6);
+        qDebug()<<"while2: "<<gen5%(gen6+gen7);
     }
 
     //qDebug()<<"Hard: "<<(gen1+gen2)/gen3;
     //ui->term->setText(QString::number(gen1)+" + "+QString::number(gen2));
     //ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") / "+QString::number(gen3)); // (a+b)*c+d/(e+f)
-    ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") / "+QString::number(gen3)+" + "+QString::number(gen4)+"/("+QString::number(gen5)+" + "+QString::number(gen6)+")");
-    qDebug()<<"answer hard: "<<((gen1+gen2)/gen3)+(gen4/(gen5+gen6));
+    ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") * "+QString::number(gen3*gen4)+"/"+QString::number(gen4)+" + "+QString::number(gen4)+"/("+QString::number(gen5)+" + "+QString::number(gen6)+")");
+    qDebug()<<"answer hard: "<<((gen1+gen2)*gen3)+(gen5/(gen6+gen7));
 }
 
 void MainWindow::on_ButtonStart_clicked()
@@ -334,7 +336,7 @@ void MainWindow::on_CheckButton_clicked()
            }
     }
     else {
-        if (Ianswer==((gen1+gen2)/gen3)+(gen4/(gen5+gen6)))
+        if (Ianswer==((gen1+gen2)*gen3)+(gen5/(gen6+gen7)))
         {
            //qDebug()<<"isHard: "<<(gen1+gen2)/3+gen4/(gen5+gen6);
             level++;

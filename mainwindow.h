@@ -57,6 +57,7 @@ private:
     int gen4;
     int gen5;
     int gen6;
+    int gen7;
     //int easyTimer=ETS;
     int timer=0;
     QTimer *tmr;

@@ -309,29 +309,36 @@
            </layout>
           </item>
           <item>
+           <widget class="QLabel" name="term">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QLabel" name="term">
-              <property name="minimumSize">
-               <size>
-                <width>275</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
-              </property>
+             <widget class="QPushButton" name="CheckButton">
               <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
+               <string>Check</string>
               </property>
              </widget>
             </item>
@@ -339,7 +346,7 @@
              <widget class="QLineEdit" name="lineAnswer">
               <property name="maximumSize">
                <size>
-                <width>50</width>
+                <width>100</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -349,13 +356,6 @@
              </widget>
             </item>
            </layout>
-          </item>
-          <item>
-           <widget class="QPushButton" name="CheckButton">
-            <property name="text">
-             <string>Check</string>
-            </property>
-           </widget>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_14">
