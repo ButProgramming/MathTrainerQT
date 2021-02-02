@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/styling">
+        <file>resources/stylesheet.css</file>
+        <file>resources/Accessories.png</file>
+        <file>resources/Adobe Illustrator.png</file>
+        <file>resources/Adobe Photoshop.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix1"/>
+</RCC>
