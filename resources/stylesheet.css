@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
 QMainWindow
 {
     background: qlineargradient(x1:1, y1:0, x2:0, y2:1,
