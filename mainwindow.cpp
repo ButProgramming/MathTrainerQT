@@ -128,8 +128,8 @@ void MainWindow::easyGame()
 
 void MainWindow::easyGameGenerate()
 {
-    gen1 = QRandomGenerator::global()->bounded(0,10*easyLvl);
-    gen2 = QRandomGenerator::global()->bounded(0,10*easyLvl);
+    gen1 = QRandomGenerator::global()->bounded(0,10*(level+1));
+    gen2 = QRandomGenerator::global()->bounded(0,10*(level+1));
     qDebug()<<gen1<<" "<<gen2;
     ui->term->setText(QString::number(gen1)+" + "+QString::number(gen2));
 }
@@ -223,6 +223,7 @@ void MainWindow::on_PlayButton_clicked()
 {
     if (!isPlaying)
     {
+        //level
         isPlaying=true;
         if (ui->ListLevels->currentRow()==0)
         {
@@ -258,7 +259,7 @@ void MainWindow::on_CheckButton_clicked()
         ui->labelLevel->setText(QString::number(level));
         ui->lineAnswer->setText("");
         ui->lineAnswer->setFocus();
-        easyLvl++;
+        //easyLvl++;
         timer+=5;
         if (timer>ETS)
             ui->progressBar->setMaximum(timer);
