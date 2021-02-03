@@ -85,6 +85,7 @@ private:
     QLineSeries *series = new QLineSeries();
     QChart *chart = new QChart();
     QChartView *chartView = new QChartView(chart);
+    QString namePlayer;
 
 
 };

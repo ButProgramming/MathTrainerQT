@@ -175,7 +175,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>185</width>
+                <width>195</width>
                 <height>45</height>
                </size>
               </property>
@@ -312,7 +312,7 @@
            <widget class="QLabel" name="term">
             <property name="minimumSize">
              <size>
-              <width>300</width>
+              <width>320</width>
               <height>0</height>
              </size>
             </property>
@@ -499,6 +499,16 @@
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
+         <widget class="QLabel" name="StatName">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QCustomPlot" name="plot" native="true">
           <property name="minimumSize">
            <size>
@@ -533,6 +543,12 @@
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
              <widget class="QPushButton" name="Start3">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="text">
                <string>Start</string>
               </property>

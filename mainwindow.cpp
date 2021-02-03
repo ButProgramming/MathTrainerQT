@@ -219,6 +219,7 @@ void MainWindow::hardGameGenerate()
 void MainWindow::on_ButtonStart_clicked()
 {
     QString name=ui->InputName->text();
+    ui->labelLevel->setText("Your level: "+QString::number(level));
     if (ui->InputName->text().isEmpty())
             ui->labelWarning->setText("Input your name please");
     else if (getID(name))
@@ -238,10 +239,10 @@ void MainWindow::on_ButtonStart_clicked()
 
 void MainWindow::on_ButtonBest_Score_clicked()
 {
-    QString name=ui->InputName->text();
+    namePlayer=ui->InputName->text();
     if (ui->InputName->text().isEmpty())
             ui->labelWarning->setText("Input your name please");
-    else if (getID(name))
+    else if (getID(namePlayer))
     {
         //qDebug()<<"Clicked on Best Score: "<<playerID;
        // qDebug()<<ui->InputName->text();
@@ -250,7 +251,7 @@ void MainWindow::on_ButtonBest_Score_clicked()
         testfunk();
         ui->label->setText("Hello, "+(ui->InputName->text())/*+g"!\n Choose your level \nand have fun playing!"*/);
         ui->stackedWidget->setCurrentIndex(2);
-
+        ui->StatName->setText("Player: "+ui->InputName->text());
     }
     else
     {
@@ -263,6 +264,7 @@ void MainWindow::on_ButtonBest_Score_clicked()
         ui->label->setText("Hello, "+(ui->InputName->text())/*+g"!\n Choose your level \nand have fun playing!"*/);
         ui->stackedWidget->setCurrentIndex(2);
         initializeVectors(playerID);
+        ui->StatName->setText("Player: "+ui->InputName->text());
     }
 
 }
@@ -306,7 +308,7 @@ void MainWindow::on_CheckButton_clicked()
         if (Ianswer==gen1+gen2)
         {
             level++;
-            ui->labelLevel->setText(QString::number(level));
+            //ui->labelLevel->setText(QString::number(level));
             ui->lineAnswer->setText("");
             ui->lineAnswer->setFocus();
             //easyLvl++;
@@ -334,6 +336,7 @@ void MainWindow::on_CheckButton_clicked()
             ui->lcdNumber->display(timer);
             normalGameGenerate();
            }
+       ui->labelLevel->setText("Your level: "+QString::number(level));
     }
     else {
         if (Ianswer==((gen1+gen2)*gen3)+(gen5/(gen6+gen7)))
@@ -466,6 +469,7 @@ void MainWindow::on_ButtonBest_Score2_clicked()
     //nameCheck(ui->InputName->text());
     testfunk();
     ui->stackedWidget->setCurrentIndex(2);
+    ui->StatName->setText("Player: "+ui->InputName->text());
 }
 
 void MainWindow::on_Start3_clicked()
@@ -495,33 +499,30 @@ void MainWindow::testfunk()
     auto itMax = *std::max_element(VMax.begin(), VMax.end());
     qDebug()<<itMax<<endl;
     ui->plot->xAxis->setRange(1,5);
-    ui->plot->yAxis->setRange(0,itMax+5);
+    ui->plot->yAxis->setRange(0,itMax*1.5);
+
     //easy
-   // ui->plot->addGraph();
     ui->plot->graph(0)->setData(x, VEasy);
     ui->plot->graph(0)->setName("Easy");
     ui->plot->replot();
     ui->plot->update();
+
     //normal
-    //ui->plot->addGraph();
-    ui->plot->graph(1)->setPen(QPen(Qt::red));
+    ui->plot->graph(1)->setPen(QPen(Qt::yellow));
     ui->plot->graph(1)->setData(x, VNormal);
     ui->plot->graph(1)->setName("Normal");
     ui->plot->replot();
     ui->plot->update();
+
     //hard
-    //ui->plot->addGraph();
-    ui->plot->graph(2)->setPen(QPen(Qt::yellow));
+    ui->plot->graph(2)->setPen(QPen(Qt::red));
     ui->plot->graph(2)->setData(x, VHard);
     ui->plot->graph(2)->setName("Hard");
     ui->plot->replot();
     ui->plot->update();
 
-
+    //legend is on
     ui->plot->legend->setVisible(true);
-    //VEasy.clear();
-    //x.clear();
-   // ui->plot->clearGraphs();
 
 
 }
