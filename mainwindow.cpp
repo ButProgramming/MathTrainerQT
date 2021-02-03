@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QMessageBox>
 #include <QListWidgetItem>
 #include <QDebug>
 #include <QTimer>
@@ -118,7 +117,8 @@ void MainWindow::easyGame()
     ui->lineAnswer->setText("");
     ui->lineAnswer->setFocus();
     level=0;
-    ui->labelLevel->setText(QString::number(level));
+
+    //ui->labelLevel->setText(QString::number(level));
     //easyTimer=30;
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(ETS);
@@ -128,6 +128,7 @@ void MainWindow::easyGame()
 
 void MainWindow::easyGameGenerate()
 {
+    ui->labelLevel->setText("Your level: "+QString::number(level));
     gen1 = QRandomGenerator::global()->bounded(0,10*(level+1));
     gen2 = QRandomGenerator::global()->bounded(0,10*(level+1));
     qDebug()<<gen1<<" "<<gen2;
@@ -142,7 +143,7 @@ void MainWindow::normalGame()
     ui->lineAnswer->setText("");
     ui->lineAnswer->setFocus();
     level=0;
-    ui->labelLevel->setText(QString::number(level));
+    //ui->labelLevel->setText(QString::number(level));
     //easyTimer=30;
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(NTS);
@@ -152,6 +153,7 @@ void MainWindow::normalGame()
 
 void MainWindow::normalGameGenerate()
 {
+    ui->labelLevel->setText("Your level: "+QString::number(level));
     gen1 = QRandomGenerator::global()->bounded(0,5*(level+1));
     gen2 = QRandomGenerator::global()->bounded(0,5*(level+1));
     gen3 = QRandomGenerator::global()->bounded(2,3*(level+1));
@@ -171,7 +173,7 @@ void MainWindow::hardGame()
     ui->lineAnswer->setText("");
     ui->lineAnswer->setFocus();
     level=0;
-    ui->labelLevel->setText(QString::number(level));
+    //ui->labelLevel->setText(QString::number(level));
     //easyTimer=30;
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(HTS);
@@ -181,6 +183,7 @@ void MainWindow::hardGame()
 
 void MainWindow::hardGameGenerate()
 {
+    ui->labelLevel->setText("Your level: "+QString::number(level));
     gen1 = QRandomGenerator::global()->bounded(0,5*(level+1));
     gen2 = QRandomGenerator::global()->bounded(0,5*(level+1));
     gen3 = QRandomGenerator::global()->bounded(2,3*(level+1));
@@ -319,13 +322,14 @@ void MainWindow::on_CheckButton_clicked()
             ui->lcdNumber->display(timer);
             easyGameGenerate();
         }
+
     }
     else if (isNormal) {
         if (Ianswer==(gen1+gen2)*gen3)
         {
            qDebug()<<"isNormal";
             level++;
-            ui->labelLevel->setText(QString::number(level));
+            //ui->labelLevel->setText(QString::number(level));
             ui->lineAnswer->setText("");
             ui->lineAnswer->setFocus();
             //easyLvl++;
@@ -336,14 +340,14 @@ void MainWindow::on_CheckButton_clicked()
             ui->lcdNumber->display(timer);
             normalGameGenerate();
            }
-       ui->labelLevel->setText("Your level: "+QString::number(level));
+
     }
     else {
         if (Ianswer==((gen1+gen2)*gen3)+(gen5/(gen6+gen7)))
         {
            //qDebug()<<"isHard: "<<(gen1+gen2)/3+gen4/(gen5+gen6);
             level++;
-            ui->labelLevel->setText(QString::number(level));
+            //ui->labelLevel->setText(QString::number(level));
             ui->lineAnswer->setText("");
             ui->lineAnswer->setFocus();
             //easyLvl++;
@@ -355,6 +359,7 @@ void MainWindow::on_CheckButton_clicked()
             hardGameGenerate();
            }
     }
+
 
 }
 
@@ -422,7 +427,7 @@ void MainWindow::updateTime()
             }
             qDebug()<<endl;
             level=0;
-            ui->labelLevel->setText("0");
+            ui->labelLevel->setText("Your level: "+QString::number(level));
             qDebug()<<"In updatetime()";
         }
     }

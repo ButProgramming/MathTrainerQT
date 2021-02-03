@@ -65,6 +65,13 @@ QLabel#label
     font-family: "Comic Sans MS";
 }
 
+QLabel#StatName
+{
+    font-size: 24px;
+    color: #836F4A;
+    font-family: "Comic Sans MS";
+}
+
 QLabel#labelLevel
 {
     font-size: 17px;
