@@ -6,14 +6,32 @@ QMainWindow
     stop: 1    	#FFEAC3)
 }
 
-/*QVBoxLayout
+QFrame#Frame1
 {
-background: rgba(255, 255, 255, 0.4);
-font-size: 26px;
-font-family: "Comic Sans MS";
-border-radius: 10px;
-border: 2px dashed rgba(120, 120, 120, .4);
-}*/
+    background: rgba(255, 255, 255, 0.4);
+    font-size: 26px;
+    font-family: "Comic Sans MS";
+    border-radius: 10px;
+    border: 2px dashed rgba(120, 120, 120, .4);
+}
+
+QFrame#Frame2
+{
+    background: rgba(255, 255, 255, 0.4);
+    font-size: 26px;
+    font-family: "Comic Sans MS";
+    border-radius: 10px;
+    border: 2px dashed rgba(120, 120, 120, .4);
+}
+
+QFrame#Frame3
+{
+    background: rgba(255, 255, 255, 0.4);
+    font-size: 26px;
+    font-family: "Comic Sans MS";
+    border-radius: 10px;
+    border: 2px dashed rgba(120, 120, 120, .4);
+}
 
 QPushButton
 {
