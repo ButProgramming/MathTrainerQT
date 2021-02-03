@@ -513,7 +513,7 @@ void MainWindow::testfunk()
     ui->plot->update();
 
     //normal
-    ui->plot->graph(1)->setPen(QPen(Qt::yellow));
+    ui->plot->graph(1)->setPen(QPen( Qt::darkYellow));
     ui->plot->graph(1)->setData(x, VNormal);
     ui->plot->graph(1)->setName("Normal");
     ui->plot->replot();

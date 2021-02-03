@@ -60,6 +60,17 @@ QLineEdit
     font-family: "Comic Sans MS";
     border-radius: 10px;
     border: 2px dashed rgba(120, 120, 120, .4);
+    color: #594B32;
+}
+
+QLineEdit#lineAnswer
+{
+    background: rgba(255, 255, 255, 0.4);
+    font-size: 26px;
+    font-family: "Comic Sans MS";
+    border-radius: 10px;
+    border: 2px dashed rgba(120, 120, 120, .4);
+    color: black;
 }
 
 QLabel#labelGameName
@@ -95,7 +106,7 @@ QLabel#label
 QLabel#StatName
 {
     font-size: 24px;
-    color: #836F4A;
+    color: #594B32;
     font-family: "Comic Sans MS";
 }
 
@@ -134,5 +145,6 @@ QListWidget
     font-family: "Comic Sans MS";
     font-size: 20px;
     background-color: transparent;
+    color: #594B32;
 }
 
