@@ -1,15 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#define ETS 10  //start value for easygame
-#define NTS 10 //start value for normalgame
-#define HTS 10 //start value for hardgame (hard timer start)
+#define ETS 10000  //start value in milliseconds for easygame
+#define NTS 10000  //start value for in milliseconds normalgame
+#define HTS 10000  //start value for in milliseconds hardgame (hard timer start)
 #include <QMainWindow>
 #include <QtSql/QtSql>
 #include <QRandomGenerator>
 #include <algorithm>
 #include <QSet>
-
-
 #include <QtCharts>
 #include <QChartView>
 #include <QLine>
@@ -28,44 +26,25 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
-
-    //void keyPressEvent(QKeyEvent * e);
-
 private slots:
     void on_ButtonStart_clicked();
-
     void on_ButtonBest_Score_clicked();
-
     void on_PlayButton_clicked();
-
     void on_CheckButton_clicked();
-
     void updateTime();
-
     void on_ButtonBest_Score2_clicked();
-
     void on_Start3_clicked();
-
     void keyPressEvent(QKeyEvent*);
 
 private:
     Ui::MainWindow *ui;
     QSqlDatabase con;
     QSqlQuery sqlDB;
-    int gen1;
-    int gen2;
-    int gen3;
-    int gen4;
-    int gen5;
-    int gen6;
-    int gen7;
-    //int easyTimer=ETS;
+    int gen1, gen2, gen3, gen4, gen5, gen6, gen7;
     int timer=0;
     QTimer *tmr;
     int easyLvl=1;
     bool isPlaying=false;
-    //int playerID=0;
     QString playerID;
     void testfunk();
     int level=0;
@@ -76,18 +55,19 @@ private:
     bool isEasy=false;
     bool isNormal=false;
     bool isHard=false;
+    QLineSeries *series = new QLineSeries();
+    QChart *chart = new QChart();
+    QChartView *chartView = new QChartView(chart);
+    QString namePlayer;
+
     void createPlayer();
-    bool getID(QString name);
+    bool getID(QString);
     void easyGameGenerate();
     void easyGame();
     void normalGameGenerate();
     void normalGame();
     void hardGameGenerate();
     void hardGame();
-    QLineSeries *series = new QLineSeries();
-    QChart *chart = new QChart();
-    QChartView *chartView = new QChartView(chart);
-    QString namePlayer;
 
 
 };

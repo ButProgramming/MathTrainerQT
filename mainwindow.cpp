@@ -4,7 +4,6 @@
 #include <QDebug>
 #include <QTimer>
 #include <QQueue>
-
 #include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -111,7 +110,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 }
 
 bool MainWindow::getID(QString name)
-{    //ui->lcdNumber->display(0);
+{
 
     sqlDB.exec("SELECT * FROM players");
 
@@ -121,7 +120,6 @@ bool MainWindow::getID(QString name)
         if(sqlDB.value(1).toString()==name)
         {
             playerID=sqlDB.value(0).toString();
-            //initializeVectors(playerID);
             qDebug()<<"playerID: "<<playerID;
             return true;
         }
@@ -137,13 +135,10 @@ void MainWindow::easyGame()
     ui->lineAnswer->setText("");
     ui->lineAnswer->setFocus();
     level=0;
-
-    //ui->labelLevel->setText(QString::number(level));
-    //easyTimer=30;
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(ETS);
     ui->progressBar->setValue(ETS);
-    tmr->start(1000);
+    tmr->start(1);
 }
 
 void MainWindow::easyGameGenerate()
@@ -163,12 +158,10 @@ void MainWindow::normalGame()
     ui->lineAnswer->setText("");
     ui->lineAnswer->setFocus();
     level=0;
-    //ui->labelLevel->setText(QString::number(level));
-    //easyTimer=30;
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(NTS);
     ui->progressBar->setValue(NTS);
-    tmr->start(1000);
+    tmr->start(1);
 }
 
 void MainWindow::normalGameGenerate()
@@ -180,7 +173,6 @@ void MainWindow::normalGameGenerate()
     gen4 = QRandomGenerator::global()->bounded(2,3*(level+1));
     int gen5=gen3*gen4;
     qDebug()<<"Normal: "<<(gen1+gen2)*gen3*gen4/gen4;
-    //ui->term->setText(QString::number(gen1)+" + "+QString::number(gen2));
     ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") * "+QString::number(gen5)+"/"+QString::number(gen4)); // (a+b)*c/d
 
 }
@@ -193,12 +185,10 @@ void MainWindow::hardGame()
     ui->lineAnswer->setText("");
     ui->lineAnswer->setFocus();
     level=0;
-    //ui->labelLevel->setText(QString::number(level));
-    //easyTimer=30;
     ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(HTS);
     ui->progressBar->setValue(HTS);
-    tmr->start(1000);
+    tmr->start(1);
 }
 
 void MainWindow::hardGameGenerate()
@@ -213,15 +203,6 @@ void MainWindow::hardGameGenerate()
     qDebug()<<"4!";
     gen7 = QRandomGenerator::global()->bounded(1,3*(level+1));//f
 
-
-    /*while (true)
-    {
-
-        if ((gen1+gen2)%gen3==0)
-            break;
-        qDebug()<<"while1: "<<(gen1+gen2)%gen3;
-    }*/
-
     qDebug()<<"Hard : "<<(gen1+gen2)*gen3*gen4/gen4;
 
     while (true)
@@ -232,9 +213,6 @@ void MainWindow::hardGameGenerate()
         qDebug()<<"while2: "<<gen5%(gen6+gen7);
     }
 
-    //qDebug()<<"Hard: "<<(gen1+gen2)/gen3;
-    //ui->term->setText(QString::number(gen1)+" + "+QString::number(gen2));
-    //ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") / "+QString::number(gen3)); // (a+b)*c+d/(e+f)
     ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") * "+QString::number(gen3*gen4)+"/"+QString::number(gen4)+" + "+QString::number(gen4)+"/("+QString::number(gen5)+" + "+QString::number(gen6)+")");
     qDebug()<<"answer hard: "<<((gen1+gen2)*gen3)+(gen5/(gen6+gen7));
 }
@@ -249,7 +227,6 @@ void MainWindow::on_ButtonStart_clicked()
     {
         initializeVectors(playerID);
         //qDebug()<<ui->InputName->text();
-        //ui->labelWarning->setText("Input a another name");
         ui->stackedWidget->setCurrentIndex(1);
         ui->label->setText("Hello, "+(ui->InputName->text())+"!"/*+"!\n Choose your level \nand have fun playing!"*/);
     }
@@ -267,9 +244,9 @@ void MainWindow::on_ButtonBest_Score_clicked()
             ui->labelWarning->setText("Input your name please");
     else if (getID(namePlayer))
     {
-        //qDebug()<<"Clicked on Best Score: "<<playerID;
-       // qDebug()<<ui->InputName->text();
-        //ui->labelWarning->setText("Input a another name");
+     // qDebug()<<"Clicked on Best Score: "<<playerID;
+     // qDebug()<<ui->InputName->text();
+
         initializeVectors(playerID);
         testfunk();
         ui->label->setText("Hello, "+(ui->InputName->text())/*+g"!\n Choose your level \nand have fun playing!"*/);
@@ -279,12 +256,10 @@ void MainWindow::on_ButtonBest_Score_clicked()
     else
     {
         createPlayer();
-        //initializeVectors(playerID);
         getID(ui->InputName->text());
-        //ui->plot->clearGraphs();
 
         testfunk();
-        ui->label->setText("Hello, "+(ui->InputName->text())/*+g"!\n Choose your level \nand have fun playing!"*/);
+        ui->label->setText("Hello, "+(ui->InputName->text()));
         ui->stackedWidget->setCurrentIndex(2);
         initializeVectors(playerID);
         ui->StatName->setText("Player: "+ui->InputName->text());
@@ -301,7 +276,8 @@ void MainWindow::on_PlayButton_clicked()
         if (ui->ListLevels->currentRow()==0)
         {
             timer=ETS;
-            ui->lcdNumber->display(timer);
+
+            ui->lcdNumber->display(timer/1000);
             easyGame();
             easyGameGenerate();
         }
@@ -324,18 +300,16 @@ void MainWindow::on_PlayButton_clicked()
 
 void MainWindow::on_CheckButton_clicked()
 {
-    qDebug()<<"checkButton";
+    //qDebug()<<"checkButton";
     QString Qanswer = ui->lineAnswer->text();
     int Ianswer=Qanswer.toInt();
     if (isEasy) {
         if (Ianswer==gen1+gen2)
         {
             level++;
-            //ui->labelLevel->setText(QString::number(level));
             ui->lineAnswer->setText("");
             ui->lineAnswer->setFocus();
-            //easyLvl++;
-            timer+=5;
+            timer+=5000;
             if (timer>ETS)
                 ui->progressBar->setMaximum(timer);
             ui->progressBar->setValue(timer);
@@ -347,13 +321,12 @@ void MainWindow::on_CheckButton_clicked()
     else if (isNormal) {
         if (Ianswer==(gen1+gen2)*gen3)
         {
-           qDebug()<<"isNormal";
+            //qDebug()<<"isNormal";
             level++;
             //ui->labelLevel->setText(QString::number(level));
             ui->lineAnswer->setText("");
             ui->lineAnswer->setFocus();
-            //easyLvl++;
-            timer+=7;
+            timer+=7000;
             if (timer>NTS)
                 ui->progressBar->setMaximum(timer);
             ui->progressBar->setValue(timer);
@@ -365,13 +338,11 @@ void MainWindow::on_CheckButton_clicked()
     else {
         if (Ianswer==((gen1+gen2)*gen3)+(gen5/(gen6+gen7)))
         {
-           //qDebug()<<"isHard: "<<(gen1+gen2)/3+gen4/(gen5+gen6);
+            //qDebug()<<"isHard: "<<(gen1+gen2)/3+gen4/(gen5+gen6);
             level++;
-            //ui->labelLevel->setText(QString::number(level));
             ui->lineAnswer->setText("");
             ui->lineAnswer->setFocus();
-            //easyLvl++;
-            timer+=7;
+            timer+=12000;
             if (timer>NTS)
                 ui->progressBar->setMaximum(timer);
             ui->progressBar->setValue(timer);
@@ -390,17 +361,16 @@ void MainWindow::updateTime()
         timer--;
 
         ui->progressBar->setValue(timer);
-        ui->lcdNumber->display(timer);
-        qDebug()<<timer;
+        ui->lcdNumber->display(timer/1000);
+        //Debug()<<timer;
         if (!timer)
         {
             tmr->stop();
-            //QMessageBox::information(this, "Out of time", "time is out");
             isPlaying=false;
             timer=ETS;
             ui->progressBar->setMaximum(timer);
             ui->progressBar->setValue(timer);
-            ui->lcdNumber->display(timer);
+            ui->lcdNumber->display(timer/1000);
             ui->term->setText("");
             ui->lineAnswer->setText("");
             if (isEasy)
@@ -491,7 +461,6 @@ void MainWindow::initializeVectors(QString playerID)
 
 void MainWindow::on_ButtonBest_Score2_clicked()
 {
-    //nameCheck(ui->InputName->text());
     testfunk();
     ui->stackedWidget->setCurrentIndex(2);
     ui->StatName->setText("Player: "+ui->InputName->text());
@@ -506,8 +475,7 @@ void MainWindow::on_Start3_clicked()
 void MainWindow::testfunk()
 {
     ui->plot->replot();
-    //ui->plot->clearData();
-    qDebug()<<"In testfunk()";
+    //qDebug()<<"In testfunk()";
     QVector<double> x(5);
     for (int i=0; i<5;i++)
     {
