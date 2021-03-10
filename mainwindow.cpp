@@ -116,11 +116,11 @@ bool MainWindow::getID(QString name)
 
     while(sqlDB.next())
     {
-        qDebug() << sqlDB.value(1).toString();// << " " <<name;
+        //qDebug() << sqlDB.value(1).toString();// << " " <<name;
         if(sqlDB.value(1).toString()==name)
         {
             playerID=sqlDB.value(0).toString();
-            qDebug()<<"playerID: "<<playerID;
+            //qDebug()<<"playerID: "<<playerID;
             return true;
         }
     }
@@ -146,7 +146,8 @@ void MainWindow::easyGameGenerate()
     ui->labelLevel->setText("Your level: "+QString::number(level));
     gen1 = QRandomGenerator::global()->bounded(0,10*(level+1));
     gen2 = QRandomGenerator::global()->bounded(0,10*(level+1));
-    qDebug()<<gen1<<" "<<gen2;
+    qDebug() << "Easy: "<<gen1+gen2;
+    //qDebug()<<gen1<<" "<<gen2;
     ui->term->setText(QString::number(gen1)+" + "+QString::number(gen2));
 }
 
@@ -198,9 +199,7 @@ void MainWindow::hardGameGenerate()
     gen2 = QRandomGenerator::global()->bounded(0,5*(level+1));
     gen3 = QRandomGenerator::global()->bounded(2,3*(level+1));
     gen4 = QRandomGenerator::global()->bounded(2,3*(level+1));
-    qDebug()<<"3!";
     gen6 = QRandomGenerator::global()->bounded(1,3*(level+1));//e
-    qDebug()<<"4!";
     gen7 = QRandomGenerator::global()->bounded(1,3*(level+1));//f
 
     qDebug()<<"Hard : "<<(gen1+gen2)*gen3*gen4/gen4;
@@ -210,11 +209,11 @@ void MainWindow::hardGameGenerate()
         gen5 = QRandomGenerator::global()->bounded(2,60*(level+1));//d//b
         if (gen5%(gen6+gen7)==0)
             break;
-        qDebug()<<"while2: "<<gen5%(gen6+gen7);
+        //qDebug()<<"while2: "<<gen5%(gen6+gen7);
     }
 
     ui->term->setText("("+QString::number(gen1)+" + "+QString::number(gen2)+") * "+QString::number(gen3*gen4)+"/"+QString::number(gen4)+" + "+QString::number(gen4)+"/("+QString::number(gen5)+" + "+QString::number(gen6)+")");
-    qDebug()<<"answer hard: "<<((gen1+gen2)*gen3)+(gen5/(gen6+gen7));
+    qDebug()<<"Hard: "<<((gen1+gen2)*gen3)+(gen5/(gen6+gen7));
 }
 
 void MainWindow::on_ButtonStart_clicked()
@@ -244,11 +243,8 @@ void MainWindow::on_ButtonBest_Score_clicked()
             ui->labelWarning->setText("Input your name please");
     else if (getID(namePlayer))
     {
-     // qDebug()<<"Clicked on Best Score: "<<playerID;
-     // qDebug()<<ui->InputName->text();
-
         initializeVectors(playerID);
-        testfunk();
+        plotFunk();
         ui->label->setText("Hello, "+(ui->InputName->text())/*+g"!\n Choose your level \nand have fun playing!"*/);
         ui->stackedWidget->setCurrentIndex(2);
         ui->StatName->setText("Player: "+ui->InputName->text());
@@ -258,7 +254,7 @@ void MainWindow::on_ButtonBest_Score_clicked()
         createPlayer();
         getID(ui->InputName->text());
 
-        testfunk();
+        plotFunk();
         ui->label->setText("Hello, "+(ui->InputName->text()));
         ui->stackedWidget->setCurrentIndex(2);
         initializeVectors(playerID);
@@ -300,7 +296,6 @@ void MainWindow::on_PlayButton_clicked()
 
 void MainWindow::on_CheckButton_clicked()
 {
-    //qDebug()<<"checkButton";
     QString Qanswer = ui->lineAnswer->text();
     int Ianswer=Qanswer.toInt();
     if (isEasy) {
@@ -376,7 +371,7 @@ void MainWindow::updateTime()
             if (isEasy)
             {
                 VEasy.erase(VEasy.begin());
-                qDebug()<<"level is: "<<level;
+                //qDebug()<<"level is: "<<level;
                 VEasy.push_back(level);
                 sqlDB.exec( "update results set "
                             "game1="+QString::number(VEasy[4])+", "
@@ -390,7 +385,7 @@ void MainWindow::updateTime()
             else if (isNormal)
             {
                 VNormal.erase(VNormal.begin());
-                qDebug()<<"level is: "<<level;
+                //qDebug()<<"level is: "<<level;
                 VNormal.push_back(level);
                 sqlDB.exec( "update results set "
                             "game1="+QString::number(VNormal[4])+", "
@@ -404,7 +399,7 @@ void MainWindow::updateTime()
             else //if (isHard)
             {
                 VHard.erase(VHard.begin());
-                qDebug()<<"level is: "<<level;
+                //qDebug()<<"level is: "<<level;
                 VHard.push_back(level);
                 sqlDB.exec( "update results set "
                             "game1="+QString::number(VHard[4])+", "
@@ -415,10 +410,10 @@ void MainWindow::updateTime()
                             "where level='hard' and ID="+playerID+""
                           );
             }
-            qDebug()<<endl;
+            //qDebug()<<endl;
             level=0;
             ui->labelLevel->setText("Your level: "+QString::number(level));
-            qDebug()<<"In updatetime()";
+            //qDebug()<<"In updatetime()";
         }
     }
 }
@@ -436,9 +431,9 @@ void MainWindow::initializeVectors(QString playerID)
         for (int i=2; i<=6; i++)
             VEasy.push_back(sqlDB.value(i).toInt());
     }
-    qDebug()<<"in initializeVectors function";
+    //qDebug()<<"in initializeVectors function";
     for (double d: VEasy)
-        qDebug()<<"VEasy: "<<d;
+        //qDebug()<<"VEasy: "<<d;
 
     //normal
     sqlDB.exec("SELECT * FROM results where level='normal' and ID="+playerID+"");
@@ -461,7 +456,7 @@ void MainWindow::initializeVectors(QString playerID)
 
 void MainWindow::on_ButtonBest_Score2_clicked()
 {
-    testfunk();
+    plotFunk();
     ui->stackedWidget->setCurrentIndex(2);
     ui->StatName->setText("Player: "+ui->InputName->text());
 }
@@ -472,7 +467,7 @@ void MainWindow::on_Start3_clicked()
 }
 
 
-void MainWindow::testfunk()
+void MainWindow::plotFunk()
 {
     ui->plot->replot();
     //qDebug()<<"In testfunk()";
@@ -482,15 +477,15 @@ void MainWindow::testfunk()
         x[i]=i+1;
     }
 
-    qDebug()<<*std::max_element(VEasy.begin(),VEasy.end());
+    //qDebug()<<*std::max_element(VEasy.begin(),VEasy.end());
     auto itE = *std::max_element(VEasy.begin(),VEasy.end());
     auto itN = *std::max_element(VNormal.begin(),VNormal.end());
     auto itH = *std::max_element(VHard.begin(),VHard.end());
     //auto itMax;
-    qDebug()<<"itE: "<<itE<<" itN: "<<itN<<" itH :"<<itH;
+    //qDebug()<<"itE: "<<itE<<" itN: "<<itN<<" itH :"<<itH;
     QVector <double> VMax = {itE, itN, itH};
     auto itMax = *std::max_element(VMax.begin(), VMax.end());
-    qDebug()<<itMax<<endl;
+    //qDebug()<<itMax<<endl;
     ui->plot->xAxis->setRange(1,5);
     ui->plot->yAxis->setRange(0,itMax*1.5);
 

@@ -46,7 +46,7 @@ private:
     int easyLvl=1;
     bool isPlaying=false;
     QString playerID;
-    void testfunk();
+    void plotFunk();
     int level=0;
     QVector<double> VEasy;
     QVector<double> VNormal;
