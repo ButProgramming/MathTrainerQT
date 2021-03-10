@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#define ETS 3  //start value for easygame
+#define ETS 10  //start value for easygame
 #define NTS 10 //start value for normalgame
 #define HTS 10 //start value for hardgame (hard timer start)
 #include <QMainWindow>
@@ -46,6 +46,8 @@ private slots:
     void on_ButtonBest_Score2_clicked();
 
     void on_Start3_clicked();
+
+    void keyPressEvent(QKeyEvent*);
 
 private:
     Ui::MainWindow *ui;

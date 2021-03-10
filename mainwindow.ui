@@ -30,7 +30,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Greeting">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -573,6 +573,17 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>InputName</tabstop>
+  <tabstop>ButtonStart</tabstop>
+  <tabstop>ButtonBest_Score</tabstop>
+  <tabstop>ListLevels</tabstop>
+  <tabstop>PlayButton</tabstop>
+  <tabstop>CheckButton</tabstop>
+  <tabstop>lineAnswer</tabstop>
+  <tabstop>ButtonBest_Score2</tabstop>
+  <tabstop>Start3</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

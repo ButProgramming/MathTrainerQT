@@ -5,13 +5,10 @@
 #include <QTimer>
 #include <QQueue>
 
-//#include <QKeyEvent>
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-
-    //ui->lcdNumber->display(0);
-
     ui->setupUi(this);
     tmr=new QTimer(this);
 
@@ -90,8 +87,31 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-bool MainWindow::getID(QString name)
+void MainWindow::keyPressEvent(QKeyEvent *e)
 {
+
+    if(ui->stackedWidget->currentIndex()==0){
+        if(e->key()==Qt::Key_Return) {
+
+            on_ButtonStart_clicked();
+        }
+    }
+    else if(ui->stackedWidget->currentIndex()==1){
+        if(e->key()==Qt::Key_Return) {
+            if(isPlaying){
+                on_CheckButton_clicked();
+            }
+            else on_PlayButton_clicked();
+        }
+    }
+    else if(ui->stackedWidget->currentIndex()==2){
+        on_Start3_clicked();
+    }
+
+}
+
+bool MainWindow::getID(QString name)
+{    //ui->lcdNumber->display(0);
 
     sqlDB.exec("SELECT * FROM players");
 
